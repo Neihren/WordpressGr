@@ -23,12 +23,17 @@
                 'post__not_in' => [get_the_ID()],
                 'post_type' => 'post',
                 'posts_per_page' => 3,
+                'orderby' => 'rand',
                 'tax_query' => [
                     [
                         'taxonomy' => 'sport',
                         'terms' => $sports,
                         'operator' => 'AND'
                     ]
+                ],
+                "meta_query" => [
+                    'key' => 'is_sponso',
+                    'compare' => 'NOT EXISTS'
                 ]
             ]);
             while ($query->have_posts()) : $query->the_post();
